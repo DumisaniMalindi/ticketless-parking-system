@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+}
+
+.app {
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background: #0078d4;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  color: yellow;
+}
+
+.content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+.cards {
+  display: flex;
+  gap: 20px;
+}
+
+.card {
+  flex: 1;
+  background: #0078d4;
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.road {
+  position: relative;
+  height: 250px;
+  background: #4b5563;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.car {
+  position: absolute;
+  left: 50px;
+  top: 100px;
+  font-size: 50px;
+}
+
+.booth {
+  position: absolute;
+  right: 250px;
+  top: 70px;
+  font-size: 60px;
+}
+
+.gate-post {
+  position: absolute;
+  right: 180px;
+  top: 70px;
+  width: 18px;
+  height: 120px;
+  background: black;
+}
+
+.gate-arm {
+  position: absolute;
+  right: 15px;
+  top: 125px;
+  width: 170px;
+  height: 10px;
+  background: red;
+  transform-origin: left center;
+  transition: 1s ease;
+}
+
+.closed {
+  transform: rotate(0deg);
+}
+
+.open {
+  transform: rotate(-75deg);
+}
