@@ -6,11 +6,9 @@ export const testLambda = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({}),
+      body: JSON.stringify({})
     }
   );
 
-  const data = await response.json();
-
-  return data;
+  return await response.json();
 };

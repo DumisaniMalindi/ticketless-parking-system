@@ -6,35 +6,50 @@ function Entry({ addSession }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [gateOpen, setGateOpen] = useState(false);
 
-const handleUpload = async () => {
-  if (!selectedFile) {
-    alert("Please select an image first");
-    return;
-  }
+  const handleUpload = async () => {
+    if (!selectedFile) {
+      alert("Please select an image first");
+      return;
+    }
 
-  try {
-    const response = await testLambda();
+    try {
+      const response = await testLambda();
 
-    console.log("Lambda Response:", response);
+      const data =
+        typeof response.body === "string"
+          ? JSON.parse(response.body)
+          : response;
 
-    alert(
-      `Generated File Key:\n${response.fileKey}`
-    );
+      console.log("Parsed Data:", data);
 
-    addSession();
+      const uploadResponse = await fetch(
+        data.uploadUrl,
+        {
+          method: "PUT",
+          body: selectedFile,
+        }
+      );
 
-    setGateOpen(true);
+      if (!uploadResponse.ok) {
+        throw new Error(
+          `Upload failed: ${uploadResponse.status}`
+        );
+      }
 
-    setTimeout(() => {
-      setGateOpen(false);
-    }, 3000);
-  } catch (error) {
-    console.error(error);
+      alert("Image uploaded successfully!");
 
-    alert("Lambda connection failed");
-  }
-};
+      addSession();
 
+      setGateOpen(true);
+
+      setTimeout(() => {
+        setGateOpen(false);
+      }, 3000);
+    } catch (error) {
+      console.error(error);
+      alert(`Upload failed: ${error.message}`);
+    }
+  };
   return (
     <div>
       <h2>Vehicle Entry</h2>
