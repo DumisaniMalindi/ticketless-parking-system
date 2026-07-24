@@ -5,7 +5,7 @@ function Exit({ completeSession }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [gateOpen, setGateOpen] = useState(false);
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (!selectedFile) {
       alert("Please select an image first");
       return;
@@ -18,6 +18,8 @@ function Exit({ completeSession }) {
     setTimeout(() => {
       setGateOpen(false);
     }, 3000);
+
+    alert("Vehicle exit processed");
   };
 
   return (
@@ -26,9 +28,7 @@ function Exit({ completeSession }) {
 
       <input
         type="file"
-        onChange={(e) =>
-          setSelectedFile(e.target.files[0])
-        }
+        onChange={(e) => setSelectedFile(e.target.files[0])}
       />
 
       <br />

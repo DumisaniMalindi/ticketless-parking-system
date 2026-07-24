@@ -1,13 +1,27 @@
 import { useState } from "react";
 import GateSimulation from "../components/GateSimulation";
+import { testLambda } from "../services/apiService";
 
 function Entry({ addSession }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [gateOpen, setGateOpen] = useState(false);
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (!selectedFile) {
       alert("Please select an image first");
+      return;
+    }
+
+    try {
+      const data = await testLambda();
+
+      console.log(data);
+
+      alert("Lambda connected successfully");
+    } catch (error) {
+      console.error(error);
+
+      alert("Lambda connection failed");
       return;
     }
 
@@ -18,6 +32,8 @@ function Entry({ addSession }) {
     setTimeout(() => {
       setGateOpen(false);
     }, 3000);
+
+    alert("Image selected successfully");
   };
 
   return (
@@ -26,9 +42,7 @@ function Entry({ addSession }) {
 
       <input
         type="file"
-        onChange={(e) =>
-          setSelectedFile(e.target.files[0])
-        }
+        onChange={(e) => setSelectedFile(e.target.files[0])}
       />
 
       <br />
