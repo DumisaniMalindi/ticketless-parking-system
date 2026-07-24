@@ -6,24 +6,20 @@ function Entry({ addSession }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [gateOpen, setGateOpen] = useState(false);
 
-  const handleUpload = async () => {
-    if (!selectedFile) {
-      alert("Please select an image first");
-      return;
-    }
+const handleUpload = async () => {
+  if (!selectedFile) {
+    alert("Please select an image first");
+    return;
+  }
 
-    try {
-      const data = await testLambda();
+  try {
+    const response = await testLambda();
 
-      console.log(data);
+    console.log("Lambda Response:", response);
 
-      alert("Lambda connected successfully");
-    } catch (error) {
-      console.error(error);
-
-      alert("Lambda connection failed");
-      return;
-    }
+    alert(
+      `Generated File Key:\n${response.fileKey}`
+    );
 
     addSession();
 
@@ -32,9 +28,12 @@ function Entry({ addSession }) {
     setTimeout(() => {
       setGateOpen(false);
     }, 3000);
+  } catch (error) {
+    console.error(error);
 
-    alert("Image selected successfully");
-  };
+    alert("Lambda connection failed");
+  }
+};
 
   return (
     <div>
@@ -42,7 +41,9 @@ function Entry({ addSession }) {
 
       <input
         type="file"
-        onChange={(e) => setSelectedFile(e.target.files[0])}
+        onChange={(e) =>
+          setSelectedFile(e.target.files[0])
+        }
       />
 
       <br />

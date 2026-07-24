@@ -10,11 +10,7 @@ export const testLambda = async () => {
     }
   );
 
-  console.log("HTTP Status:", response.status);
-
   const data = await response.json();
-
-  console.log("Lambda Response:", data);
 
   return data;
 };
